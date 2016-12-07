@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Hello World</string>
+    <string name="hello_world">东莞理工学院 Android实训</string>
+    <string name="user_name">用户名：</string>
+    <string name="password">密    码：</string>
+    <string name="twice">再次输入：</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="exit">退出</string>
+
+    <string name="forget">忘记密码</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
