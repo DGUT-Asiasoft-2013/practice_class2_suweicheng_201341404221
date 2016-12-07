@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 19
     buildToolsVersion '25.0.1'
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
     defaultConfig {
         applicationId "com.example.administrator.myapplication"

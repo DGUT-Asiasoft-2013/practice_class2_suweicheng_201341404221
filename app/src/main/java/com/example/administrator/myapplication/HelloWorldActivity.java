@@ -1,6 +1,7 @@
 package com.example.administrator.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.administrator.myapplication.fragment.TabFragment;
@@ -28,25 +29,26 @@ public class HelloWorldActivity extends Activity {
                 onItemClick(index);
             }
         });
-        getFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.content, searchFragment).commit();
     }
 
     private void onItemClick(int index) {
         switch (index) {
             case 0:
-                getFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, searchFragment).commit();
                 break;
             case 1:
-                getFragmentManager().beginTransaction().replace(R.id.container, feedListFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, feedListFragment).commit();
                 break;
             case 2:
-                getFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+               Intent intent=new Intent(HelloWorldActivity.this,AddMessageActivity.class);
+                startActivity(intent);
                 break;
             case 3:
-                getFragmentManager().beginTransaction().replace(R.id.container, myInfoFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, myInfoFragment).commit();
                 break;
             case 4:
-                getFragmentManager().beginTransaction().replace(R.id.container, notesListFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, notesListFragment).commit();
                 break;
 
         }

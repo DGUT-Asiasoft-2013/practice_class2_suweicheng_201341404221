@@ -3,12 +3,10 @@ package com.example.administrator.myapplication.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
 
@@ -17,18 +15,22 @@ import com.example.administrator.myapplication.R;
  */
 public class TabFragment extends Fragment {
 
-    Button search;
-    Button me;
-    Button feeds;
-    Button add;
-    Button notes;
+    View search;
+    View me;
+    View feeds;
+    View add;
+    View notes;
     View view;
-    Button[] items = {search, feeds, add, me,notes};
+    View [] items;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_tab, container);
+
+        if (view==null) {
+            view = inflater.inflate(R.layout.fragment_tab, null);
+        }
+
 
         initView();
 
@@ -39,15 +41,15 @@ public class TabFragment extends Fragment {
 
     void initView() {
 
-        search = (Button) view.findViewById(R.id.btn_search);
-        me = (Button) view.findViewById(R.id.btn_me);
-        feeds = (Button) view.findViewById(R.id.btn_feeds);
-        add = (Button) view.findViewById(R.id.btn_add);
-        notes = (Button) view.findViewById(R.id.btn_notes);
-
-        for (int i = 0; i < items.length; i++) {
+        search = (View) view.findViewById(R.id.btn_search);
+        me = (View) view.findViewById(R.id.btn_me);
+        feeds = (View) view.findViewById(R.id.btn_feeds);
+        add = (View) view.findViewById(R.id.btn_add);
+        notes = (View) view.findViewById(R.id.btn_notes);
+        items = new  View[]{search, feeds, add, me,notes};
+        for (int i = 0; i < 5; i++) {
             final int index=i;
-            items[i].setOnClickListener(new View.OnClickListener() {
+            items[index].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     click(index);

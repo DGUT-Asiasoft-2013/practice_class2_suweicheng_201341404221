@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_green_dark"
     android:orientation="horizontal">
 
 
     <LinearLayout
+        android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -13,8 +15,7 @@
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/btn_search"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@android:drawable/ic_search_category_default" />
@@ -30,16 +31,16 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btn_feeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/tab_background"
-
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/btn_feeds"
+        <ImageView
+
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@android:drawable/star_big_off" />
@@ -60,17 +61,17 @@
         android:text="    +   " />
 
     <LinearLayout
+        android:id="@+id/btn_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/tab_background"
         android:gravity="center_horizontal"
-
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/btn_me"
+        <ImageView
+
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/me" />
@@ -84,6 +85,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btn_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -92,8 +94,8 @@
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/btn_notes"
+        <ImageView
+
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@android:drawable/ic_menu_edit" />

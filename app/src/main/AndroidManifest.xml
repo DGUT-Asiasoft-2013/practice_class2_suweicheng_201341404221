@@ -24,6 +24,8 @@
         <activity android:name=".HelloWorldActivity" />
 
         <activity android:name=".RecoverPasswordActivity"></activity>
+        <activity android:name=".AddMessageActivity"></activity>
+        <activity android:name=".FeedShowActivity"></activity>
     </application>
 
 </manifest>

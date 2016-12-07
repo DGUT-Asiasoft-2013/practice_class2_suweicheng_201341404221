@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:weightSum="29"
+    android:weightSum="30"
     >
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="29.87"
+        android:layout_weight="29"
         ></FrameLayout>
 
     <fragment
@@ -21,6 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_tab"
-        android:layout_weight="0.97">
+        android:layout_weight="1">
     </fragment>
 </LinearLayout>
