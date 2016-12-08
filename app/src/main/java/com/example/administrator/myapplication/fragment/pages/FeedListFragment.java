@@ -54,7 +54,7 @@ public class FeedListFragment extends Fragment {
 
     private void onClick(int position) {
         Intent intent=new Intent(getActivity(), FeedShowActivity.class);
-        intent.putExtra("text",position);
+        intent.putExtra("text",datas[position]);
         startActivity(intent);
 
     }

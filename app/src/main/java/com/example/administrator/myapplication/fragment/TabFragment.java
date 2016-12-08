@@ -71,6 +71,14 @@ public class TabFragment extends Fragment {
     }
 
     private void click(int index) {
+        for(int i=0;i<items.length;i++){
+            if (i==index) {
+                items[i].setSelected(true);
+            }else{
+                items[i].setSelected(false);
+            }
+        }
+
         setTabOnClicklistener.onClick(index);
     }
 

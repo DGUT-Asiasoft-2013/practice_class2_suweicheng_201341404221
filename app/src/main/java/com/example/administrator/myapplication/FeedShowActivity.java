@@ -10,7 +10,8 @@ public class FeedShowActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_show);
-        Toast.makeText(this,"点击了"+getIntent().getExtras().toString(),Toast.LENGTH_LONG).show();
+        String text=getIntent().getStringExtra("text").toString();
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show();
 
 
     }
