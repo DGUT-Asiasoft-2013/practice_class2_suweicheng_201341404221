@@ -2,7 +2,6 @@ package com.example.administrator.myapplication.fragment.pages;
 
 
 import android.app.Fragment;
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.administrator.myapplication.FeedShowActivity;
+import com.example.administrator.myapplication.Activity.FeedShowActivity;
 import com.example.administrator.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -25,6 +25,9 @@ public class FeedListFragment extends Fragment {
     View view;
     ListView feedList;
     String []datas;
+    String []contents;
+    int [] drawable;
+    ArrayList<Object[]> items=new ArrayList<Object[]>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,9 +39,15 @@ public class FeedListFragment extends Fragment {
         }
         feedList= (ListView) view.findViewById(R.id.lv_feed);
         Random random=new Random();
-       datas=new String[20];
+        datas=new String[20];
+        contents=new String[20];
+        drawable=new int[20];
       for(int i=0;i<20;i++){
-         datas[i]=new String("This Row is "+random.nextInt());
+          datas[i]=new String("This Row is "+random.nextInt());
+          contents[i]=new String("This is content "+random.nextInt());
+          if(i%2==0) drawable[i]=R.drawable.me;
+          else drawable[i]=R.drawable.next;
+
        }
         feedList.setAdapter(feedListAdapter);
 
@@ -80,14 +89,19 @@ public class FeedListFragment extends Fragment {
             View view=null;
             if (convertView==null) {
                 LayoutInflater layoutInflater= LayoutInflater.from(parent.getContext());
-                view=layoutInflater.inflate(android.R.layout.simple_list_item_1,null);
+                view=layoutInflater.inflate(R.layout.listview_item,null);
 
             }else{
                 view=convertView;
             }
 
-            TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+            TextView text1 = (TextView) view.findViewById(R.id.tv_name);
             text1.setText(datas[position]);
+            TextView text2= (TextView) view.findViewById(R.id.tv_content);
+            text2.setText(contents[position]+"dwaidhuhdwauihduawhduiahwdiwhadai");
+            TextView text3= (TextView) view.findViewById(R.id.tv_time);
+            text3.setText("12:45");
+
             return view;
         }
     };

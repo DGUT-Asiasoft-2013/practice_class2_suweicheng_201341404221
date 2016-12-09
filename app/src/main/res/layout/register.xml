@@ -21,6 +21,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+    <fragment
+        android:id="@+id/input_name"
+        class="com.example.administrator.myapplication.fragment.SimpleTextCellFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
     <fragment
         android:id="@+id/input_email"

@@ -1,9 +1,10 @@
-package com.example.administrator.myapplication;
+package com.example.administrator.myapplication.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.fragment.TabFragment;
 import com.example.administrator.myapplication.fragment.pages.FeedListFragment;
 import com.example.administrator.myapplication.fragment.pages.MyInfoFragment;

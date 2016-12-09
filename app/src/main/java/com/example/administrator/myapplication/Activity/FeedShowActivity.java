@@ -1,8 +1,10 @@
-package com.example.administrator.myapplication;
+package com.example.administrator.myapplication.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.administrator.myapplication.R;
 
 public class FeedShowActivity extends Activity {
 
