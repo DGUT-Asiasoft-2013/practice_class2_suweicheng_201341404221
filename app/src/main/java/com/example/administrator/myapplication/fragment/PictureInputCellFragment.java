@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
@@ -26,6 +27,12 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
     ImageView choose;
    // TextView labelText;
     TextView hintText;
+
+    public byte[] getPngData() {
+        return pngData;
+    }
+
+    byte [] pngData;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inputcell_picture, container);
@@ -77,10 +84,12 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
         }
         if (requestCode == REQURSTCODE_CAMERA) {
             bmp = (Bitmap) data.getExtras().get("data");
+            saveBitmap(bmp);
             choose.setImageBitmap(bmp);
         } else if (requestCode == REQURSTCODE_ALBUM) {
             try {
                 bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                saveBitmap(bmp);
                 choose.setImageBitmap(bmp);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -99,4 +108,11 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
         intent.setType("image/*");
         startActivityForResult(intent, 2);
     }
+
+    void saveBitmap(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+        pngData=byteArrayOutputStream.toByteArray();
+    }
+
 }

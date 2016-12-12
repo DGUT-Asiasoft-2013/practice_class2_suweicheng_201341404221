@@ -15,6 +15,5 @@ public class FeedShowActivity extends Activity {
         String text=getIntent().getStringExtra("text").toString();
         Toast.makeText(this,text,Toast.LENGTH_LONG).show();
 
-
     }
 }

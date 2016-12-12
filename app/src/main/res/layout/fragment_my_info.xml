@@ -5,9 +5,27 @@
     tools:context="com.example.administrator.myapplication.fragment.pages.MyInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar" />
+    <com.example.administrator.myapplication.view.AvatarView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/avatar"
+        />
     <TextView
+        android:id="@+id/tv_myInfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="60dp"
         android:text="my infor" />
 
 </FrameLayout>

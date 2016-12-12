@@ -15,7 +15,6 @@ import com.example.administrator.myapplication.R;
 public class RecoverPasswordStepOneFragment extends Fragment {
 
     Button nextStep;
-    EditText email;
     View view;
 
     public void setSetNextStepListener(SetNextStepListener setNextStepListener) {
@@ -31,7 +30,7 @@ public class RecoverPasswordStepOneFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_password_recover_step1, null);
         }
         nextStep = (Button) view.findViewById(R.id.nextstep1);
-        email= (EditText) view.findViewById(R.id.email);
+
 
         nextStep.setOnClickListener(new View.OnClickListener() {
             @Override

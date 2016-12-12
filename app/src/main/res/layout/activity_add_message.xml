@@ -28,18 +28,47 @@
         android:weightSum="30"
 
         >
-        <EditText
-            android:id="@+id/et_add"
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="29.5"
+            android:layout_weight="1"
+           >
+
+            <TextView
+                android:text="标题"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titile"
+                android:textSize="20sp"
+               />
+
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_addcontent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="28"
+            android:hint="+添加文章内容"
+            android:gravity="center"
+            android:background="#d3d3d3"
             android:ems="10" />
 
         <Button
             android:text="添加"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
+            android:layout_marginBottom="20dp"
             android:id="@+id/btn_add" />
 
     </LinearLayout>

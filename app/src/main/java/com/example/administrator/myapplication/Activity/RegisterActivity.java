@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.fragment.PictureInputCellFragment;
 import com.example.administrator.myapplication.fragment.SimpleTextCellFragment;
+import com.example.administrator.myapplication.util.MD5;
 import com.example.administrator.myapplication.util.MD5Util;
 
 import java.io.IOException;
@@ -19,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,7 +30,7 @@ import okhttp3.Response;
 
 public class RegisterActivity extends Activity {
 
-    final static String URL = "Http://172.27.0.32:8080/membercenter/api/register";
+    final static String URL = "Http://172.27.0.33:8080/membercenter/api/register";
 
     SimpleTextCellFragment fragmentInputCellAcount;
     SimpleTextCellFragment fragmentInputCellPassword;
@@ -59,7 +62,7 @@ public class RegisterActivity extends Activity {
     public void submit() {
         String password = fragmentInputCellPassword.getText();
         String passwordRepeat = fragmentInputCellPasswordRepeat.getText();
-        String passwordHash="";
+        String passwordHash = "";
         if (!password.equals(passwordRepeat)) {
             new AlertDialog.Builder(RegisterActivity.this).setTitle("提示").setMessage("密码不一致，请重新输入").setPositiveButton("确定", null).show();
             return;
@@ -67,23 +70,23 @@ public class RegisterActivity extends Activity {
         final String account = fragmentInputCellAcount.getText();
         String name = fragmentInputCellName.getText();
         String email = fragmentInputCellEmail.getText();
-        try {
-             passwordHash = MD5Util.getEncryptedPwd(password);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        OkHttpClient client = new OkHttpClient();
+        byte[] avatar = pictureInputCellFragment.getPngData();
+
+        passwordHash = MD5.getMD5(password);
+        OkHttpClient client = new OkHttpClient.Builder().build();
 
 
         /////
-        RequestBody body = new MultipartBody.Builder()
+        MultipartBody.Builder body = new MultipartBody.Builder()
                 .addFormDataPart("account", account)
                 .addFormDataPart("name", name)
                 .addFormDataPart("passwordHash", passwordHash)
-                .addFormDataPart("email", email)
-                .build();
+                .addFormDataPart("email", email);
+
+        if (avatar != null) {
+            body.addFormDataPart("avatar", "avatar", RequestBody.create(MediaType.parse("image/png"), avatar));
+        }
+
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("请稍候");
@@ -91,7 +94,8 @@ public class RegisterActivity extends Activity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        Request request = new Request.Builder().url(URL).method("POST", body).build();
+
+        Request request = new Request.Builder().url(URL).method("POST", body.build()).post(body.build()).build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -109,10 +113,12 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onResponse(final Call call, final Response response) throws IOException {
+
+                final String responseString = response.body().string();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        RegisterActivity.this.onResponse(call, response);
+                        RegisterActivity.this.onResponse(call, responseString);
                     }
                 });
 
@@ -121,18 +127,17 @@ public class RegisterActivity extends Activity {
         });
     }
 
-    private void onResponse(Call call, Response response) {
+    private void onResponse(Call call, String response) {
 
-        try {
-            new AlertDialog.Builder(RegisterActivity.this).setTitle("提示").setMessage("注册成功"+response.body().string()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+        new AlertDialog.Builder(RegisterActivity.this).setTitle("提示").setMessage("注册成功\n" + "请重新登录").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }).show();
 
-                }
-            }).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void onFailure(Call call, IOException e) {

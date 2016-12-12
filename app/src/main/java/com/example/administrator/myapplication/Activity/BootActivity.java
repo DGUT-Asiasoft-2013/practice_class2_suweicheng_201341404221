@@ -19,7 +19,7 @@ import okhttp3.Response;
 public class BootActivity extends Activity {
 
 
-    final static String URL="Http://172.27.0.32:8080/membercenter/api/hello";
+    final static String URL="Http://172.27.0.33:8080/membercenter/api/hello";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

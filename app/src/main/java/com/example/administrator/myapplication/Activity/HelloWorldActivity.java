@@ -43,7 +43,6 @@ public class HelloWorldActivity extends Activity {
                 break;
             case 2:
                Intent intent=new Intent(HelloWorldActivity.this,AddMessageActivity.class);
-
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
                 break;
