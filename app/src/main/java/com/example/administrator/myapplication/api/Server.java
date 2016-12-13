@@ -1,5 +1,8 @@
 package com.example.administrator.myapplication.api;
 
+import android.graphics.Bitmap;
+
+import com.example.administrator.myapplication.entity.User;
 import com.fasterxml.jackson.annotation.JacksonAnnotationValue;
 
 import java.net.CookieManager;
@@ -16,6 +19,7 @@ import okhttp3.Request;
 public class Server {
     static OkHttpClient client;
     public final static String SERVER_ADDRESS="http://172.27.0.33:8080/membercenter/";
+
     static {
         CookieManager cookieManager=new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -29,5 +33,9 @@ public class Server {
 
     public static Request.Builder requestBuildWithAPI(String api){
         return  new Request.Builder().url("Http://172.27.0.33:8080/membercenter/api/"+api);
+    }
+
+    public static Request.Builder requestBuildWithAvatar(String avatar){
+        return  new Request.Builder().url(SERVER_ADDRESS+avatar);
     }
 }

@@ -29,32 +29,33 @@ public class AddMessageActivity extends Activity {
     EditText content;
     EditText title;
     Button add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_message);
 
         add = (Button) findViewById(R.id.btn_add);
-        content= (EditText) findViewById(R.id.et_addcontent);
-        title= (EditText) findViewById(R.id.et_title);
+        content = (EditText) findViewById(R.id.et_addcontent);
+        title = (EditText) findViewById(R.id.et_title);
 
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.none, R.anim.slide_out_bottom);
+
                 addArticleToServer();
+
             }
         });
     }
 
     private void addArticleToServer() {
-        OkHttpClient client= Server.getShareClient();
-        String articleContent=content.getText().toString();
-        String articleTitle=title.getText().toString();
-        RequestBody body=new MultipartBody.Builder().addFormDataPart("title",articleTitle).addFormDataPart("content",articleContent).build();
-        Request request=Server.requestBuildWithAPI("addArticle").method("POST",body).build();
+        OkHttpClient client = Server.getShareClient();
+        String articleContent = content.getText().toString();
+        String articleTitle = title.getText().toString();
+        RequestBody body = new MultipartBody.Builder().addFormDataPart("title", articleTitle).addFormDataPart("content", articleContent).build();
+        Request request = Server.requestBuildWithAPI("addArticle").method("POST", body).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -64,19 +65,21 @@ public class AddMessageActivity extends Activity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                final String responseString =response.body().string();
-                ObjectMapper mapper=new ObjectMapper();
-                Article article=null;
-                try{
-                    article=mapper.readValue(responseString,Article.class);
-                    if (article!=null) {
-                        runOnUiThread(new Runnable() {
+                final String responseString = response.body().string();
+                ObjectMapper mapper = new ObjectMapper();
+                Article article = null;
+
+                try {
+                    article = mapper.readValue(responseString, Article.class);
+                    if (article != null) {
+
+                        AddMessageActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 new AlertDialog.Builder(AddMessageActivity.this).setTitle("提示：").setMessage("添加文章成功").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent=new Intent(AddMessageActivity.this,HelloWorldActivity.class);
+                                        Intent intent = new Intent(AddMessageActivity.this, HelloWorldActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -85,11 +88,17 @@ public class AddMessageActivity extends Activity {
                             }
                         });
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new AlertDialog.Builder(AddMessageActivity.this).setTitle("提示：").setMessage("添加文章失败！").setPositiveButton("确定",null).show();
+                            new AlertDialog.Builder(AddMessageActivity.this).setTitle("提示：").setMessage("添加文章失败！").setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    overridePendingTransition(R.anim.none, R.anim.slide_out_bottom);
+                                }
+                            }).show();
 
                         }
                     });

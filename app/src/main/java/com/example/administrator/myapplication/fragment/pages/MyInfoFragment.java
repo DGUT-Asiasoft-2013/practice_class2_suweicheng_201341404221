@@ -106,7 +106,7 @@ public class MyInfoFragment extends Fragment {
         textView.setVisibility(View.VISIBLE);
         textView.setTextColor(Color.BLACK);
         textView.setText("Hello," + user.getName());
-        avatarView.load(user);
+        avatarView.load(user.getAvatar());
 
 
     }

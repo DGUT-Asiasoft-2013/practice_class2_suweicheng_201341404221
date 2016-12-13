@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.api.Server;
@@ -87,7 +88,7 @@ public class LoginActivity extends Activity {
 
     void goLogin() {
 
-
+        ProgressBar progressBar=new ProgressBar(this);
         String account = fragmentInputCellAcount.getText();
         String passwordHash = MD5.getMD5(fragmentInputCellPassword.getText());
 
@@ -131,7 +132,7 @@ public class LoginActivity extends Activity {
                             @Override
                             public void run() {
 
-                                LoginActivity.this.onResponse(call, finalUser.getAvatar());
+                                LoginActivity.this.onResponse(call, finalUser.getAccount());
 
                             }
                         });
