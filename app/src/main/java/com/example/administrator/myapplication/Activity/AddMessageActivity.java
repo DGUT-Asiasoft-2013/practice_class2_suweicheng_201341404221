@@ -52,9 +52,9 @@ public class AddMessageActivity extends Activity {
 
     private void addArticleToServer() {
         OkHttpClient client = Server.getShareClient();
-        String articleContent = content.getText().toString();
+        String articleContent = content.getText().toString().trim();
         String articleTitle = title.getText().toString();
-        RequestBody body = new MultipartBody.Builder().addFormDataPart("title", articleTitle).addFormDataPart("content", articleContent).build();
+        RequestBody body = new MultipartBody.Builder().addFormDataPart("title", articleTitle).addFormDataPart("content","    "+ articleContent).build();
         Request request = Server.requestBuildWithAPI("addArticle").method("POST", body).build();
         client.newCall(request).enqueue(new Callback() {
             @Override

@@ -24,6 +24,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class FeedListFragment extends Fragment {
     ListView feedList;
     List<Article> data;
     int page;
+    View btnLoadMore;
+    TextView tvLoadMore;
 
 
     @Override
@@ -50,30 +53,84 @@ public class FeedListFragment extends Fragment {
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_feed_list, null);
+            btnLoadMore=inflater.inflate(R.layout.widget_load_more_button,null);
+            tvLoadMore= (TextView) btnLoadMore.findViewById(R.id.tv_loadmore);
+            feedList = (ListView) view.findViewById(R.id.lv_feed);
+            feedList.addFooterView(tvLoadMore);
+            feedList.setAdapter(feedListAdapter);
+            feedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    onClick(position);
+                }
+            });
+            tvLoadMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadMore();
+                }
+            });
         }
-        feedList = (ListView) view.findViewById(R.id.lv_feed);
-   /*     Random random=new Random();
-        datas=new String[20];
-        contents=new String[20];
-        drawable=new int[20];*/
-   /*   for(int i=0;i<20;i++){
-          datas[i]=new String("This Row is "+random.nextInt());
-          contents[i]=new String("This is content "+random.nextInt());
-          if(i%2==0) drawable[i]=R.drawable.me;
-          else drawable[i]=R.drawable.next;
 
-       }*/
+        return view;
+    }
 
-        feedList.setAdapter(feedListAdapter);
+    private void loadMore() {
 
+        tvLoadMore.setEnabled(false);
+        tvLoadMore.setText("加载中");
 
-        feedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        OkHttpClient client=Server.getShareClient();
+        Request request=Server.requestBuildWithAPI("feeds/"+(page+1)).method("get",null).build();
+
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onClick(position);
+            public void onFailure(Call call, IOException e) {
+               /* getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvLoadMore.setEnabled(true);
+                        tvLoadMore.setText("加载更多");
+                    }
+                });*/
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvLoadMore.setEnabled(true);
+                        tvLoadMore.setText("加载更多");
+                    }
+                });
+                try {
+                    final String responseString = response.body().string();
+                    ObjectMapper mapper = new ObjectMapper();
+                    Page<Article> articles= mapper.readValue(responseString,new TypeReference<Page<Article>>(){});
+
+                    if (articles.getNumber()>page) {
+                        data=articles.getContent();
+                    }else{
+                        data.addAll(articles.getContent());
+                    }
+                    page=articles.getNumber();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            feedListAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+                }catch (final Exception e){
+                    e.printStackTrace();
+                }
+
+
             }
         });
-        return view;
+
     }
 
     private void onClick(int position) {
@@ -112,15 +169,13 @@ public class FeedListFragment extends Fragment {
                 view = convertView;
             }
 
-
-
-
             TextView text1 = (TextView) view.findViewById(R.id.tv_name);
             text1.setText(data.get(position).getAuthorName());
             TextView text2 = (TextView) view.findViewById(R.id.tv_content);
             text2.setText(data.get(position).getContent());
             TextView text3 = (TextView) view.findViewById(R.id.tv_time);
-            text3.setText(data.get(position).getEditDate().toString());
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+            text3.setText(format.format(data.get(position).getCreateDate()));
             AvatarView avatarView= (AvatarView) view.findViewById(R.id.img_picture);
             avatarView.load(data.get(position).getAvatar());
             return view;

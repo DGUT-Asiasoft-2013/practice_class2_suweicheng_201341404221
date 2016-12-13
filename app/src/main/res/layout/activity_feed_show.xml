@@ -43,7 +43,8 @@
             android:layout_margin="5dp"
             android:gravity="center_vertical|left"
             android:text="作者:"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="normal|bold" />
 
         <TextView
             android:id="@+id/tv_author"
@@ -52,6 +53,7 @@
             android:layout_margin="5dp"
             android:gravity="center_vertical|left"
             android:text="作者"
+            android:textStyle="bold"
             android:textColor="@android:color/darker_gray"
 
             />
@@ -70,6 +72,7 @@
             android:layout_margin="5dp"
             android:gravity="center_vertical|left"
             android:text="时间:"
+            android:textStyle="bold"
             android:textColor="@android:color/darker_gray" />
 
         <TextView
@@ -79,6 +82,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="时间"
+            android:textStyle="bold"
             android:textColor="@android:color/darker_gray" />
     </LinearLayout>
 
@@ -87,6 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="内容"
+        android:textSize="15sp"
         android:textAlignment="textStart" />
 
 </LinearLayout>

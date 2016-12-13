@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.entity.Article;
 
+import java.text.SimpleDateFormat;
+
 import static android.R.attr.text;
 
 public class FeedShowActivity extends Activity {
@@ -42,7 +44,8 @@ public class FeedShowActivity extends Activity {
 
         author.setText(article.getAuthorName());
         title.setText(article.getTitle());
-        createDate.setText(article.getCreateDate().toString());
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+        createDate.setText(format.format(article.getCreateDate()));
         content.setText(article.getContent());
         back.setOnClickListener(new View.OnClickListener() {
             @Override
