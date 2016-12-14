@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Article implements Serializable{
 
-    String id;
+    int id;
     User author;
     String content;
     String title;
@@ -22,11 +22,11 @@ public class Article implements Serializable{
     String avatar;
     String author_name;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getAvatar() {
